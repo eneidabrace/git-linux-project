@@ -55,7 +55,6 @@ double calculateAverage(Student students[], int count) {
     return sum / count;
 }
 
-// ✅ SHTESA E VERSIONIT 2: SEARCH STUDENT
 void searchStudent(Student students[], int count) {
 
     string searchName;
@@ -77,9 +76,68 @@ void searchStudent(Student students[], int count) {
         }
     }
 
-    if(!found) {
+    if(!found)
         cout << "\nStudent not found.\n";
+}
+
+// ✅ EDIT STUDENT (NEW IN V3)
+void editStudent(Student students[], int count) {
+
+    string name;
+    bool found = false;
+
+    cout << "\nEnter student name to edit: ";
+    cin >> name;
+
+    for(int i = 0; i < count; i++) {
+
+        if(students[i].name == name) {
+
+            cout << "\nEnter new age: ";
+            cin >> students[i].age;
+
+            cout << "Enter new grade: ";
+            cin >> students[i].grade;
+
+            cout << "\nStudent updated successfully!\n";
+
+            found = true;
+            break;
+        }
     }
+
+    if(!found)
+        cout << "\nStudent not found.\n";
+}
+
+// ✅ DELETE STUDENT (NEW IN V3)
+void deleteStudent(Student students[], int &count) {
+
+    string name;
+    bool found = false;
+
+    cout << "\nEnter student name to delete: ";
+    cin >> name;
+
+    for(int i = 0; i < count; i++) {
+
+        if(students[i].name == name) {
+
+            for(int j = i; j < count - 1; j++) {
+                students[j] = students[j + 1];
+            }
+
+            count--;
+
+            cout << "\nStudent deleted successfully!\n";
+
+            found = true;
+            break;
+        }
+    }
+
+    if(!found)
+        cout << "\nStudent not found.\n";
 }
 
 int main() {
@@ -95,7 +153,9 @@ int main() {
         cout << "2. Display Students\n";
         cout << "3. Calculate Average Grade\n";
         cout << "4. Search Student\n";
-        cout << "5. Exit\n";
+        cout << "5. Edit Student\n";
+        cout << "6. Delete Student\n";
+        cout << "7. Exit\n";
 
         cout << "\nChoose option: ";
         cin >> choice;
@@ -121,6 +181,14 @@ int main() {
                 break;
 
             case 5:
+                editStudent(students, count);
+                break;
+
+            case 6:
+                deleteStudent(students, count);
+                break;
+
+            case 7:
                 cout << "\nProgram closed.\n";
                 break;
 
@@ -128,8 +196,7 @@ int main() {
                 cout << "\nInvalid option!\n";
         }
 
-    } while(choice != 5);
+    } while(choice != 7);
 
     return 0;
 }
-
